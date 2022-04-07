@@ -36,6 +36,14 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
         iniObservers()
     }
 
+    private fun initView() {
+        binding.usersRecyclerView.apply {
+            adapter = userAdapter
+        }
+        userAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    }
+
     @OptIn(ExperimentalPagingApi::class)
     private fun iniObservers() {
         lifecycleScope.launchWhenCreated {
@@ -43,14 +51,6 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
                 userAdapter.submitData(lifecycle, it)
             }
         }
-    }
-
-    private fun initView() {
-        binding.usersRecyclerView.apply {
-            adapter = userAdapter
-        }
-        userAdapter.stateRestorationPolicy =
-            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
     override fun onItemClick(user: User) {

@@ -15,7 +15,7 @@ interface Repository {
     // User
     @ExperimentalPagingApi
     fun getUsers(): Flow<PagingData<User>>
-    suspend fun saveUsers(users: List<User>?)
+    suspend fun saveUsers(users: List<User>)
     suspend fun saveUser(user: User)
 
     //Dog
