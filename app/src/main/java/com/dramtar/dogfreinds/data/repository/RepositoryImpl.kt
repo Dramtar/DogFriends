@@ -37,11 +37,9 @@ class RepositoryImpl @Inject constructor(
 
     @ExperimentalPagingApi
     override fun getUsers(): Flow<PagingData<User>> {
+        val config = PagingConfig(pageSize = QUERY_PAGE_SIZE, enablePlaceholders = true)
         return Pager(
-            config = PagingConfig(
-                pageSize = QUERY_PAGE_SIZE,
-                enablePlaceholders = true
-            ),
+            config = config,
             remoteMediator = UserRemoteMediator(
                 localDataSource = localDataSource,
                 remoteDataSource = remoteDataSource,
@@ -57,13 +55,11 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveUsers(users: List<User>?) = withContext(ioDispatcher) {
-        if (users != null) {
-            UserListMapperLocal().transformToDto(users).let { userEntity ->
-                userEntity.forEach { entity ->
-                    Log.i("user saved", entity.email)
-                    localDataSource.saveUser(user = entity)
-                }
+    override suspend fun saveUsers(users: List<User>) = withContext(ioDispatcher) {
+        UserListMapperLocal().transformToDto(users).let { userEntity ->
+            userEntity.forEach { entity ->
+                Log.i("user saved", entity.email)
+                localDataSource.saveUser(user = entity)
             }
         }
     }
@@ -86,16 +82,8 @@ class RepositoryImpl @Inject constructor(
         return when (val response = remoteDataSource.getDogAvatar()) {
             is Result.Success -> {
                 if (response.data != null) {
-                    val url = response.data.message
-                    val dog = Dog(
-                        id = null,
-                        userEmail = email,
-                        dogName = Utils().generateDogName(url = url, email = email),
-                        dogPic = url
-                    )
-
+                    val dog = initDog(url = response.data.message, email = email)
                     saveDog(dog = dog)
-
                     Result.Success(dog)
                 } else {
                     Result.Success(null)
@@ -111,5 +99,14 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun saveDog(dog: Dog) {
         localDataSource.insertDog(DogMapperLocal().transformToDto(dog))
+    }
+
+    private fun initDog(url: String, email: String): Dog {
+        return Dog(
+            id = null,
+            userEmail = email,
+            dogName = Utils().generateDogName(url = url, email = email),
+            dogPic = url
+        )
     }
 }

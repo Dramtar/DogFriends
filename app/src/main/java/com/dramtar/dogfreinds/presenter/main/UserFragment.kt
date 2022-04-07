@@ -14,13 +14,25 @@ import com.dramtar.dogfreinds.databinding.FragmentUserBinding
  */
 class UserFragment : Fragment(R.layout.fragment_user) {
     private val vm: MainViewModel by activityViewModels()
+    private lateinit var binding: FragmentUserBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentUserBinding.bind(view)
 
-        val binding = FragmentUserBinding.bind(view)
+        initView()
+        initUserObserver()
+        initDogObserver()
+    }
+
+    private fun initView() {
+        binding.humanAvatar.setOnClickListener {
+            vm.changeUser()
+        }
+    }
+
+    private fun initUserObserver() {
         binding.apply {
             vm.selectedUser.observe(viewLifecycleOwner) { user ->
-
                 Glide.with(humanAvatar)
                     .load(user.pictureLarge)
                     .placeholder(R.drawable.ic_misissing_avatar)
@@ -34,7 +46,11 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                 idView.text = user.id.toString()
                 emailView.text = user.email
             }
+        }
+    }
 
+    private fun initDogObserver() {
+        binding.apply {
             vm.tempDog.observe(viewLifecycleOwner) {
                 Glide.with(doggyAvatarView)
                     .load(it.dogPic)
@@ -43,10 +59,6 @@ class UserFragment : Fragment(R.layout.fragment_user) {
                     .into(doggyAvatarView)
 
                 dogName.text = it.dogName
-            }
-
-            humanAvatar.setOnClickListener {
-                vm.changeUser()
             }
 
             vm.isDogVisible.observe(viewLifecycleOwner) {

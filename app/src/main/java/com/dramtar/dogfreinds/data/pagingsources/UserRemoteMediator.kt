@@ -8,6 +8,7 @@ import com.bumptech.glide.load.HttpException
 import com.dramtar.dogfreinds.data.local.LocalDataSource
 import com.dramtar.dogfreinds.data.local.entity.UserEntity
 import com.dramtar.dogfreinds.data.remote.RemoteDataSource
+import com.dramtar.dogfreinds.data.remote.model.UserModel
 import com.dramtar.dogfreinds.data.sharedprefs.SharedPref
 import com.dramtar.dogfreinds.mapper.UserListMapperRemLoc
 import com.dramtar.dogfreinds.utils.CACHE_TIME_OUT
@@ -24,9 +25,7 @@ class UserRemoteMediator(
     private val remoteDataSource: RemoteDataSource,
     private val sharedPref: SharedPref
 ) : RemoteMediator<Int, UserEntity>() {
-
     private var page: Int = sharedPref.getLastUserPage()
-
 
     override suspend fun initialize(): InitializeAction {
         return if (System.currentTimeMillis() - localDataSource.lastUpdateUser() <= CACHE_TIME_OUT) {
@@ -41,45 +40,40 @@ class UserRemoteMediator(
         state: PagingState<Int, UserEntity>
     ): MediatorResult {
         return try {
-            val loadKey = when (loadType) {
-                LoadType.REFRESH -> 1
+            when (loadType) {
+                LoadType.REFRESH -> page = 1
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     ++page
                 }
             }
-
-            sharedPref.saveLastUserPage(page = loadKey)
-
-            when (val response =
-                remoteDataSource.getUsers(page = loadKey)) {
+            when (val response = remoteDataSource.getUsers(page = page)) {
                 is Result.Success -> {
                     if (response.data != null) {
-                        if (loadType == LoadType.REFRESH) {
-                            localDataSource.deleteAllUsers()
-                            page = 1
-                            sharedPref.saveLastUserPage(page = page)
-                        }
+                        if (loadType == LoadType.REFRESH) clearDB()
 
-                        UserListMapperRemLoc().transformToDomain(response.data.users)
-                            .let { usersList: List<UserEntity> ->
-                                localDataSource.saveUsers(usersList)
-                            }
+                        saveToLocal(response.data.users)
                     }
                 }
-                is Result.Error -> {
-
-                }
-                else -> {
-
-                }
+                is Result.Error -> {}
+                else -> {}
             }
-
             MediatorResult.Success(endOfPaginationReached = false)
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {
             MediatorResult.Error(e)
         }
+    }
+
+    private suspend fun clearDB() {
+        localDataSource.deleteAllUsers()
+        page = 1
+        sharedPref.saveLastUserPage(page = page)
+    }
+
+    private suspend fun saveToLocal(list: List<UserModel>) {
+        sharedPref.saveLastUserPage(page = page)
+        localDataSource.saveUsers(UserListMapperRemLoc().transformToDomain(list))
     }
 }
