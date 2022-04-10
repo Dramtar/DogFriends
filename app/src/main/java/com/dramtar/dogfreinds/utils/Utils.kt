@@ -2,7 +2,6 @@ package com.dramtar.dogfreinds.utils
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import androidx.annotation.NonNull
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
@@ -32,38 +31,6 @@ class Utils {
         return Color.rgb(invertedRed, invertedGreen, invertedBlue)
     }
 
-    fun setRndBGColorToUser(@NonNull user: User): User {
-        val rnd = Random(user.id)
-        val color = Color.rgb(rnd.nextInt(), rnd.nextInt(), rnd.nextInt())
-        return User(
-            id = user.id,
-            gender = user.gender,
-            firstName = user.firstName,
-            lastName = user.lastName,
-            age = user.age,
-            date = user.date,
-            pictureLarge = user.pictureLarge,
-            pictureMedium = user.pictureMedium,
-            email = user.email,
-            bgColor = color,
-            nameColor = invertColor(color)
-        )
-    }
-
-    fun changeUser(user: User, newName: String): User {
-        return User(
-            id = user.id,
-            gender = user.gender,
-            firstName = "${user.firstName} $newName",
-            lastName = user.lastName,
-            age = user.age,
-            date = user.date,
-            pictureLarge = user.pictureLarge,
-            pictureMedium = user.pictureMedium,
-            email = user.email
-        )
-    }
-
     fun initDog(url: String, email: String): Dog {
         return Dog(
             id = null,
@@ -72,4 +39,36 @@ class Utils {
             dogPic = url
         )
     }
+}
+
+fun User.setRndBGColorToUser(): User {
+    val rnd = Random(id)
+    val color = Color.rgb(rnd.nextInt(), rnd.nextInt(), rnd.nextInt())
+    return User(
+        id = id,
+        gender = gender,
+        firstName = firstName,
+        lastName = lastName,
+        age = age,
+        date = date,
+        pictureLarge = pictureLarge,
+        pictureMedium = pictureMedium,
+        email = email,
+        bgColor = color,
+        nameColor = Utils().invertColor(color)
+    )
+}
+
+fun User.changeUser(newName: String): User {
+    return User(
+        id = id,
+        gender = gender,
+        firstName = "$firstName $newName",
+        lastName = lastName,
+        age = age,
+        date = date,
+        pictureLarge = pictureLarge,
+        pictureMedium = pictureMedium,
+        email = email
+    )
 }
