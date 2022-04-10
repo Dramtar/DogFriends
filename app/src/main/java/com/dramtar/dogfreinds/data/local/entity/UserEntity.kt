@@ -19,7 +19,6 @@ data class UserEntity(
     val pictureLarge: String,
     val pictureMedium: String,
     val age: Int,
-    val dogAvatar: String,
     val date: String,
     @ColumnInfo(name = "unique_email")
     val email: String,

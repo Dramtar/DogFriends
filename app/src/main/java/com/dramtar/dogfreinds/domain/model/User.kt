@@ -14,7 +14,6 @@ data class User(
     val pictureLarge: String,
     val pictureMedium: String,
     val date: String,
-    val dogAvatar: String,
     val bgColor: Int = Color.TRANSPARENT,
     val nameColor: Int = Color.GRAY,
     val email: String,

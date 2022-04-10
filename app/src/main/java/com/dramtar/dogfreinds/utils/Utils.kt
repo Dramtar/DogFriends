@@ -6,6 +6,7 @@ import androidx.annotation.NonNull
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import com.dramtar.dogfreinds.domain.model.Dog
 import com.dramtar.dogfreinds.domain.model.User
 import kotlin.random.Random
 
@@ -43,7 +44,6 @@ class Utils {
             date = user.date,
             pictureLarge = user.pictureLarge,
             pictureMedium = user.pictureMedium,
-            dogAvatar = user.dogAvatar,
             email = user.email,
             bgColor = color,
             nameColor = invertColor(color)
@@ -60,8 +60,16 @@ class Utils {
             date = user.date,
             pictureLarge = user.pictureLarge,
             pictureMedium = user.pictureMedium,
-            dogAvatar = user.dogAvatar,
             email = user.email
+        )
+    }
+
+    fun initDog(url: String, email: String): Dog {
+        return Dog(
+            id = null,
+            userEmail = email,
+            dogName = Utils().generateDogName(url = url, email = email),
+            dogPic = url
         )
     }
 }
