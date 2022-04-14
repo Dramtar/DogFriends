@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DogFreinds</string>
+
+    <string name="full_name">Full name: %s %s</string>
+    <string name="age">Age: %d</string>
+    <string name="birthday">Birthday: %s</string>
+    <string name="email">Email: %s</string>
+    <string name="last_update">Last update data: %s</string>
 </resources>

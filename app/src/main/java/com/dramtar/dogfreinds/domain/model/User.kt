@@ -17,5 +17,6 @@ data class User(
     val bgColor: Int = Color.TRANSPARENT,
     val nameColor: Int = Color.GRAY,
     val email: String,
-    val age: Int
+    val age: Int,
+    val lastUpdate: Long
 )

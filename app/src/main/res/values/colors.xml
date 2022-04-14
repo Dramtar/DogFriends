@@ -10,4 +10,7 @@
 
     <color name="dark_gray">#959595</color>
     <color name="light_gray">#EDEDED</color>
+
+    <color name="alpha_black">#2A000000</color>
+    <color name="alpha_white">#2AFFFFFF</color>
 </resources>

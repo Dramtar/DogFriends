@@ -37,8 +37,14 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
     }
 
     private fun initView() {
-        binding.usersRecyclerView.apply {
-            adapter = userAdapter
+        binding.apply {
+            usersRecyclerView.apply {
+                adapter = userAdapter
+            }
+
+            swipeRefresher.setOnRefreshListener {
+                userAdapter.refresh()
+            }
         }
         userAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
@@ -49,6 +55,7 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
         lifecycleScope.launchWhenCreated {
             vm.usersList.collectLatest {
                 userAdapter.submitData(lifecycle, it)
+                binding.swipeRefresher.isRefreshing = false
             }
         }
     }

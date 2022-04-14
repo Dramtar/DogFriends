@@ -19,7 +19,8 @@ fun UserEntity.mapToDomain(): User {
         date = date,
         pictureLarge = pictureLarge,
         pictureMedium = pictureMedium,
-        email = email
+        email = email,
+        lastUpdate = timestamp
     )
 }
 
@@ -75,7 +76,8 @@ fun UserModel.mapToDomain(): User {
         date = dob.date,
         pictureLarge = picture.large,
         pictureMedium = picture.medium,
-        email = email
+        email = email,
+        lastUpdate = 0
     )
 }
 

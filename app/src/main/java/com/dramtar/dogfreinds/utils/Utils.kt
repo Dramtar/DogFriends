@@ -55,7 +55,8 @@ fun User.setRndBGColorToUser(): User {
         pictureMedium = pictureMedium,
         email = email,
         bgColor = color,
-        nameColor = Utils().invertColor(color)
+        nameColor = Utils().invertColor(color),
+        lastUpdate = lastUpdate
     )
 }
 
@@ -69,6 +70,7 @@ fun User.changeUser(newName: String): User {
         date = date,
         pictureLarge = pictureLarge,
         pictureMedium = pictureMedium,
-        email = email
+        email = email,
+        lastUpdate = lastUpdate
     )
 }

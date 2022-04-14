@@ -2,6 +2,7 @@ package com.dramtar.dogfreinds.presenter.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.dramtar.dogfreinds.R
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 replace<UsersListFragment>(R.id.container)
             }
         }
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     override fun onBackPressed() {
