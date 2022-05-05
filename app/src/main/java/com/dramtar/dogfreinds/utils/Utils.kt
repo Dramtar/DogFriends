@@ -44,33 +44,10 @@ class Utils {
 fun User.setRndBGColorToUser(): User {
     val rnd = Random(id)
     val color = Color.rgb(rnd.nextInt(), rnd.nextInt(), rnd.nextInt())
-    return User(
-        id = id,
-        gender = gender,
-        firstName = firstName,
-        lastName = lastName,
-        age = age,
-        date = date,
-        pictureLarge = pictureLarge,
-        pictureMedium = pictureMedium,
-        email = email,
-        bgColor = color,
-        nameColor = Utils().invertColor(color),
-        lastUpdate = lastUpdate
-    )
-}
 
-fun User.changeUser(newName: String): User {
-    return User(
-        id = id,
-        gender = gender,
-        firstName = "$firstName $newName",
-        lastName = lastName,
-        age = age,
-        date = date,
-        pictureLarge = pictureLarge,
-        pictureMedium = pictureMedium,
-        email = email,
-        lastUpdate = lastUpdate
+    return this.copy(
+        bgColor = color,
+        nameColor = Utils().invertColor(color)
     )
+
 }

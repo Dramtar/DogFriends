@@ -1,12 +1,13 @@
 package com.dramtar.dogfreinds.presenter.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.RecyclerView
 import com.dramtar.dogfreinds.R
@@ -26,11 +27,20 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
 
     private val vm: MainViewModel by activityViewModels()
     private val userAdapter = UserAdapter(this)
-    private lateinit var binding: FragmentUsersListBinding
+    private var _binding: FragmentUsersListBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentUsersListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentUsersListBinding.bind(view)
 
         initView()
         iniObservers()
@@ -62,10 +72,11 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
 
     override fun onItemClick(user: User) {
         vm.setSelectedUser(user)
-        requireActivity().supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            addToBackStack(TAG)
-            replace<UserFragment>(R.id.container)
-        }
+        findNavController().navigate(R.id.action_usersListFragment_to_userFragment)
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

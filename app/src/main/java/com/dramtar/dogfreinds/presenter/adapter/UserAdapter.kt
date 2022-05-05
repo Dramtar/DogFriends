@@ -14,7 +14,7 @@ import com.dramtar.dogfreinds.utils.loadCircle
 
 
 class UserAdapter(private val listener: OnItemClickListener) :
-    PagingDataAdapter<User, UserAdapter.UserViewHolder>(DiffCallback()) {
+    PagingDataAdapter<User, RecyclerView.ViewHolder>(DiffCallback()) {
 
     private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -22,8 +22,10 @@ class UserAdapter(private val listener: OnItemClickListener) :
         return UserViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        getItem(position)?.let { user ->
+            (holder as UserViewHolder).bind(user)
+        }
     }
 
     inner class UserViewHolder(private val binding: UserItemBinding) :

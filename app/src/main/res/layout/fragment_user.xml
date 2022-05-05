@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.main.MainActivity">
+    tools:context=".presenter.main.UserFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 android:src="@drawable/ic_misissing_avatar"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_view"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

@@ -32,14 +32,11 @@ class MainViewModel @Inject constructor(
     private val changeUserUseCase: ChangeUserLocalUseCase
 ) : ViewModel() {
 
-    private val _selectedUser = MutableLiveData<User>()
-    val selectedUser: LiveData<User> = _selectedUser
+    private val _selectedUser = MutableLiveData<User?>()
+    val selectedUser: LiveData<User?> = _selectedUser
 
-    private val _tempDog = MutableLiveData<Dog>()
-    val tempDog: LiveData<Dog> = _tempDog
-
-    private val _isDogVisible = MutableLiveData<Boolean>()
-    val isDogVisible = _isDogVisible
+    private val _tempDog = MutableLiveData<Dog?>()
+    val tempDog: LiveData<Dog?> = _tempDog
 
     @ExperimentalPagingApi
     val usersList: Flow<PagingData<User>> = getUsersUseCase.execute().cachedIn(viewModelScope)
@@ -53,17 +50,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             when (val dog = getLocalDogCall(email = user.email)) {
                 is Result.Success -> {
-                    val data = dog.data
-                    if (data != null) {
-                        isDogVisible.postValue(true)
-                        _tempDog.postValue(data)
-                    } else {
-                        isDogVisible.postValue(false)
+                    dog.data?.let {
+                        _tempDog.value = it
+                    } ?: run {
                         getRemoteDog(email = user.email)
                     }
                 }
                 is Result.Error -> {
-                    isDogVisible.postValue(false)
                     Log.i("TEST result error MV", "")
                 }
                 else -> {}
@@ -75,15 +68,11 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             when (val dog = getRemoteDogCall(email = email)) {
                 is Result.Success -> {
-                    if (dog.data != null) {
-                        isDogVisible.postValue(true)
-                        _tempDog.postValue(dog.data)
-                    } else {
-                        isDogVisible.postValue(false)
+                    dog.data?.let {
+                        _tempDog.value = it
                     }
                 }
                 is Result.Error -> {
-                    isDogVisible.postValue(false)
                 }
                 else -> {}
             }
@@ -104,8 +93,8 @@ class MainViewModel @Inject constructor(
 
     private fun changeUserCall() {
         viewModelScope.launch {
-            if (selectedUser.value != null) {
-                _selectedUser.postValue(changeUserUseCase.execute(selectedUser.value!!))
+            _selectedUser.value?.let {
+                _selectedUser.value = changeUserUseCase.execute(it)
             }
         }
     }

@@ -49,10 +49,10 @@ class UserRemoteMediator(
             }
             when (val response = remoteDataSource.getUsers(page = page)) {
                 is Result.Success -> {
-                    if (response.data != null) {
+                    response.data?.let { data ->
                         if (loadType == LoadType.REFRESH) clearDB()
 
-                        saveToLocal(response.data.users)
+                        saveToLocal(data.users)
                     }
                 }
                 is Result.Error -> {}

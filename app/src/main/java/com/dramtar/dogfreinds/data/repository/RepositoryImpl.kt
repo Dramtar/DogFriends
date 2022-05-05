@@ -31,9 +31,8 @@ class RepositoryImpl @Inject constructor(
 
     @ExperimentalPagingApi
     override fun getUsers(): Flow<PagingData<User>> {
-        val config = PagingConfig(pageSize = QUERY_PAGE_SIZE, enablePlaceholders = true)
         return Pager(
-            config = config,
+            config = PagingConfig(pageSize = QUERY_PAGE_SIZE, enablePlaceholders = true),
             remoteMediator = UserRemoteMediator(
                 localDataSource = localDataSource,
                 remoteDataSource = remoteDataSource,
@@ -58,10 +57,9 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun getLocalDog(email: String): Result<Dog> = withContext(ioDispatcher) {
-        val dogDB = localDataSource.getDogByEmail(email = email)
-        if (dogDB != null) {
-            return@withContext Result.Success(dogDB.mapToDomain())
-        } else {
+        localDataSource.getDogByEmail(email = email)?.let { dogEntity ->
+            return@withContext Result.Success(dogEntity.mapToDomain())
+        } ?: run {
             return@withContext Result.Success(null)
         }
     }
@@ -69,11 +67,11 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getRemoteDog(email: String): Result<Dog> {
         return when (val response = remoteDataSource.getDogAvatar()) {
             is Result.Success -> {
-                if (response.data != null) {
-                    val dog = Utils().initDog(url = response.data.message, email = email)
+                response.data?.let { data ->
+                    val dog = Utils().initDog(url = data.message, email = email)
                     saveDog(dog = dog)
                     Result.Success(dog)
-                } else {
+                } ?: run {
                     Result.Success(null)
                 }
             }

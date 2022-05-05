@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graf"
+    app:startDestination="@id/usersListFragment">
+
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.dramtar.dogfreinds.presenter.main.UserFragment"
+        tools:layout="@layout/fragment_user"
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_usersListFragment"
+            app:destination="@id/usersListFragment"
+            app:popUpTo="@id/usersListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/usersListFragment"
+        android:name="com.dramtar.dogfreinds.presenter.main.UsersListFragment"
+        tools:layout="@layout/fragment_users_list" >
+        <action
+            android:id="@+id/action_usersListFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+</navigation>
