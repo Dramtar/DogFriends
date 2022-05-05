@@ -6,4 +6,11 @@
     <string name="birthday">Birthday: %s</string>
     <string name="email">Email: %s</string>
     <string name="last_update">Last update data: %s</string>
+    <string name="first_name_hint">First name</string>
+    <string name="last_name_hint">Last name</string>
+    <string name="age_hint">Age</string>
+    <string name="date_of_birth_hint">Date of birth</string>
+    <string name="email_hint">Email</string>
+    <string name="gender_hint">Gender</string>
+    <string name="select_picture_title">Select picture title</string>
 </resources>

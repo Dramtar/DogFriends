@@ -1,6 +1,7 @@
 package com.dramtar.dogfreinds.domain.model
 
 import android.graphics.Color
+import com.dramtar.dogfreinds.utils.toDate
 
 /**
  * Created by Dramtar on 15.03.2022
@@ -18,5 +19,6 @@ data class User(
     val nameColor: Int = Color.GRAY,
     val email: String,
     val age: Int,
-    val lastUpdate: Long
+    val lastUpdate: Long,
+    val lastUpdateText: String = lastUpdate.toDate()
 )

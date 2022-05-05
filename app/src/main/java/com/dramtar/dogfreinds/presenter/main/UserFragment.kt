@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.dramtar.dogfreinds.R
 import com.dramtar.dogfreinds.databinding.FragmentUserBinding
 import com.dramtar.dogfreinds.utils.*
 import com.google.android.material.appbar.AppBarLayout
@@ -33,61 +32,31 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
-        initUserObserver()
-        initDogObserver()
     }
 
     private fun initView() {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.collapsingToolbarView.setupWithNavController(
-            binding.toolbarView,
-            navController,
-            appBarConfiguration
-        )
 
-        binding.appBarView.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
-            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
-                binding.doggyAvatarSmallView.animateAlpha(state == State.COLLAPSED)
-            }
-        })
-
-        binding.humanAvatar.setOnClickListener {
-            vm.changeUser()
-        }
-    }
-
-    private fun initUserObserver() {
         binding.apply {
-            vm.selectedUser.observe(viewLifecycleOwner) { user ->
-                user?.let {
-                    humanAvatar.loadCircle(it.pictureMedium)
+            viewModel = vm
+            lifecycleOwner = viewLifecycleOwner
 
-                    fullNameTextView.text = getString(R.string.full_name, it.firstName, it.lastName)
-                    ageTextView.text = getString(R.string.age, it.age)
-                    birthdayTextView.text = getString(R.string.birthday, it.date)
-                    emailTextView.text = getString(R.string.email, it.email)
-                    lastUpdateTextView.text = getString(R.string.last_update, it.lastUpdate.toDate())
+            collapsingToolbarView.setupWithNavController(
+                binding.toolbarView,
+                navController,
+                appBarConfiguration
+            )
 
-                    collapsingToolbarView.setContentScrimColor(it.bgColor)
-                    collapsingToolbarView.setExpandedTitleColor(it.nameColor)
-                    collapsingToolbarView.setCollapsedTitleTextColor(it.nameColor)
-                    appBarView.setBackgroundColor(it.bgColor)
+            appBarView.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
+                override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
+                    binding.doggyAvatarSmallView.animateAlpha(state == State.COLLAPSED)
                 }
-            }
-        }
-    }
+            })
 
-    private fun initDogObserver() {
-        binding.apply {
-            vm.tempDog.observe(viewLifecycleOwner) { dog ->
-                dog?.let {
-                    doggyAvatarView.load(it.dogPic)
-                    doggyAvatarSmallView.loadCircle(it.dogPic)
-                    collapsingToolbarView.title = it.dogName
-                }
+            humanAvatar.setOnClickListener {
+                vm.changeUser()
             }
         }
     }
