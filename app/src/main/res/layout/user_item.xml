@@ -11,6 +11,15 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
+        <ImageView
+            android:id="@+id/user_avatar_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/avatar_view"
+            app:layout_constraintStart_toEndOf="@+id/user_avatar_view"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -29,7 +38,7 @@
                 android:text="Doggy username" />
 
             <TextView
-                android:id="@+id/email_view"
+                android:id="@+id/email_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Doggy username" />
@@ -40,23 +49,5 @@
                 android:layout_height="wrap_content"
                 android:text="Doggy username" />
         </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/avatar_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:cardCornerRadius="160dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/doggy_avatar_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/doggy_dummy" />
-        </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

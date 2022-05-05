@@ -1,88 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/doggy_avatar_view"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_margin="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_misissing_avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/human_avatar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_margin="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_misissing_avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doggy_avatar_view" />
-
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/human_avatar">
+        android:layout_height="match_parent"
+        tools:context=".presenter.main.UserFragment">
 
-        <TextView
-            android:id="@+id/first_name_text_view"
-            android:layout_width="wrap_content"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/human_avatar"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="16dp"
+                    android:scaleType="centerCrop"
+                    android:imgUrlCircle="@{viewModel.selectedUser.pictureLarge}"
+                    tools:src="@drawable/ic_misissing_avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/human_avatar">
+
+                    <TextView
+                        android:id="@+id/full_name_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{@string/full_name(viewModel.selectedUser.firstName, viewModel.selectedUser.lastName)}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/age_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{@string/age(viewModel.selectedUser.age)}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/birthday_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{@string/birthday(viewModel.selectedUser.date)}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/email_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{@string/email(viewModel.selectedUser.email)}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/last_update_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{@string/last_update(viewModel.selectedUser.lastUpdateText)}"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
+            android:background="@{viewModel.selectedUser.bgColor}">
 
-        <TextView
-            android:id="@+id/last_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:title="@{viewModel.tempDog.dogName}"
+                app:contentScrim="@{viewModel.selectedUser.bgColor}"
+                app:expandedTitleTextColor="@{viewModel.selectedUser.nameColor}"
+                app:collapsedTitleTextColor="@{viewModel.selectedUser.nameColor}"
+                app:collapsedTitleTextAppearance="@style/CollapsedAppBarTextStyle"
+                app:expandedTitleTextAppearance="@style/ExpandedAppBarTextStyle"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
-        <TextView
-            android:id="@+id/age_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/doggy_avatar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:imgUrl="@{viewModel.tempDog.dogPic}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/gender_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/doggy_avatar_small_view"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="10dp"
+                    android:alpha="0"
+                    android:elevation="1000dp"
+                    android:scaleType="centerCrop"
+                    android:imgUrlCircle="@{viewModel.tempDog.dogPic}"
+                    tools:src="@drawable/ic_misissing_avatar"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/id_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/translucence_toolbar_bg"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <TextView
-            android:id="@+id/email_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
+    <data>
 
-        <TextView
-            android:id="@+id/dog_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="viewModel"
+            type="com.dramtar.dogfreinds.presenter.main.MainViewModel" />
+    </data>
+</layout>

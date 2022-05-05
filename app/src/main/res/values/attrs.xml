@@ -2,4 +2,5 @@
 <resources>
 
     <attr name="itemBackground" format="reference" />
+    <attr name="toolbarBackground" format="reference" />
 </resources>

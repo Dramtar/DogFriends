@@ -10,9 +10,9 @@ import com.dramtar.dogfreinds.data.local.entity.UserEntity
 import com.dramtar.dogfreinds.data.remote.RemoteDataSource
 import com.dramtar.dogfreinds.data.remote.model.UserModel
 import com.dramtar.dogfreinds.data.sharedprefs.SharedPref
-import com.dramtar.dogfreinds.mapper.UserListMapperRemLoc
 import com.dramtar.dogfreinds.utils.CACHE_TIME_OUT
 import com.dramtar.dogfreinds.utils.Result
+import com.dramtar.dogfreinds.utils.mapToLocal
 import java.io.IOException
 
 /**
@@ -49,10 +49,10 @@ class UserRemoteMediator(
             }
             when (val response = remoteDataSource.getUsers(page = page)) {
                 is Result.Success -> {
-                    if (response.data != null) {
+                    response.data?.let { data ->
                         if (loadType == LoadType.REFRESH) clearDB()
 
-                        saveToLocal(response.data.users)
+                        saveToLocal(data.users)
                     }
                 }
                 is Result.Error -> {}
@@ -74,6 +74,6 @@ class UserRemoteMediator(
 
     private suspend fun saveToLocal(list: List<UserModel>) {
         sharedPref.saveLastUserPage(page = page)
-        localDataSource.saveUsers(UserListMapperRemLoc().transformToDomain(list))
+        localDataSource.saveUsers(list.map { it.mapToLocal() })
     }
 }

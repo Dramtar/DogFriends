@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.dramtar.dogfreinds.R
 import com.dramtar.dogfreinds.databinding.UserItemBinding
 import com.dramtar.dogfreinds.domain.model.User
 import com.dramtar.dogfreinds.utils.getColorFromAttr
+import com.dramtar.dogfreinds.utils.loadCircle
 
 
 class UserAdapter(private val listener: OnItemClickListener) :
-    PagingDataAdapter<User, UserAdapter.UserViewHolder>(DiffCallback()) {
+    PagingDataAdapter<User, RecyclerView.ViewHolder>(DiffCallback()) {
 
     private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -22,8 +22,10 @@ class UserAdapter(private val listener: OnItemClickListener) :
         return UserViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        getItem(position)?.let { user ->
+            (holder as UserViewHolder).bind(user)
+        }
     }
 
     inner class UserViewHolder(private val binding: UserItemBinding) :
@@ -42,20 +44,18 @@ class UserAdapter(private val listener: OnItemClickListener) :
         fun bind(user: User) {
             binding.apply {
                 val defBGColor = context.getColorFromAttr(R.attr.itemBackground)
-                val defTextColor = context.getColorFromAttr(com.google.android.material.R.attr.colorOnPrimary)
+                val defTextColor =
+                    context.getColorFromAttr(com.google.android.material.R.attr.colorOnPrimary)
 
-                Glide.with(itemView)
-                    .load(user.pictureMedium)
-                    .into(doggyAvatarView)
+                userAvatarView.loadCircle(user.pictureMedium)
                 itemContainer.setBackgroundColor(if (user.id % 2 == 0) user.bgColor else defBGColor)
-
                 nickName.text = user.firstName
                 idView.text = user.id.toString()
-                emailView.text = user.email
+                emailTextView.text = user.email
 
                 nickName.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
                 idView.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
-                emailView.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
+                emailTextView.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
             }
         }
     }

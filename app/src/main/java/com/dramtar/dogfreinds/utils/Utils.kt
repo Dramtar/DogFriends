@@ -2,10 +2,10 @@ package com.dramtar.dogfreinds.utils
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import androidx.annotation.NonNull
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import com.dramtar.dogfreinds.domain.model.Dog
 import com.dramtar.dogfreinds.domain.model.User
 import kotlin.random.Random
 
@@ -31,37 +31,23 @@ class Utils {
         return Color.rgb(invertedRed, invertedGreen, invertedBlue)
     }
 
-    fun setRndBGColorToUser(@NonNull user: User): User {
-        val rnd = Random(user.id)
-        val color = Color.rgb(rnd.nextInt(), rnd.nextInt(), rnd.nextInt())
-        return User(
-            id = user.id,
-            gender = user.gender,
-            firstName = user.firstName,
-            lastName = user.lastName,
-            age = user.age,
-            date = user.date,
-            pictureLarge = user.pictureLarge,
-            pictureMedium = user.pictureMedium,
-            dogAvatar = user.dogAvatar,
-            email = user.email,
-            bgColor = color,
-            nameColor = invertColor(color)
+    fun initDog(url: String, email: String): Dog {
+        return Dog(
+            id = null,
+            userEmail = email,
+            dogName = Utils().generateDogName(url = url, email = email),
+            dogPic = url
         )
     }
+}
 
-    fun changeUser(user: User, newName: String): User {
-        return User(
-            id = user.id,
-            gender = user.gender,
-            firstName = "${user.firstName} $newName",
-            lastName = user.lastName,
-            age = user.age,
-            date = user.date,
-            pictureLarge = user.pictureLarge,
-            pictureMedium = user.pictureMedium,
-            dogAvatar = user.dogAvatar,
-            email = user.email
-        )
-    }
+fun User.setRndBGColorToUser(): User {
+    val rnd = Random(id)
+    val color = Color.rgb(rnd.nextInt(), rnd.nextInt(), rnd.nextInt())
+
+    return this.copy(
+        bgColor = color,
+        nameColor = Utils().invertColor(color)
+    )
+
 }
