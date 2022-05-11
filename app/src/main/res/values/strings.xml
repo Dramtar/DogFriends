@@ -13,4 +13,14 @@
     <string name="email_hint">Email</string>
     <string name="gender_hint">Gender</string>
     <string name="select_picture_title">Select picture title</string>
+    <string name="add_user_title">Add user</string>
+    <string name="edit_user_title">Edit user</string>
+    <string name="add_new_user_button">Add new user</string>
+
+    <string name="male_title">Male</string>
+    <string name="female_title">Female</string>
+    <string name="diverse_title">Diverse</string>
+
+    <string name="save_button">Save</string>
+    <string name="add_button">Add</string>
 </resources>

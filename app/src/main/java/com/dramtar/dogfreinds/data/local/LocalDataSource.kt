@@ -3,6 +3,7 @@ package com.dramtar.dogfreinds.data.local
 import androidx.paging.PagingSource
 import com.dramtar.dogfreinds.data.local.entity.DogEntity
 import com.dramtar.dogfreinds.data.local.entity.UserEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Dramtar on 15.03.2022
@@ -17,7 +18,7 @@ interface LocalDataSource {
 
     suspend fun saveUser(user: UserEntity)
 
-    suspend fun getUserByID(id: Int): UserEntity?
+    fun getUserByID(id: Int): Flow<UserEntity?>
 
     suspend fun lastUpdateUser(): Long
 
@@ -26,6 +27,8 @@ interface LocalDataSource {
     suspend fun deleteUser(user: UserEntity)
 
     suspend fun deleteAllUsers()
+
+    suspend fun updateUser(user: UserEntity)
 
     // Dog table
 

@@ -17,6 +17,8 @@ interface Repository {
     fun getUsers(): Flow<PagingData<User>>
     suspend fun saveUsers(users: List<User>)
     suspend fun saveUser(user: User)
+    suspend fun getUserById(id: Int): Flow<User?>
+    suspend fun updateUser(user: User)
 
     //Dog
     suspend fun getLocalDog(email: String): Result<Dog>

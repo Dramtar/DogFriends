@@ -5,6 +5,8 @@ import com.dramtar.dogfreinds.data.local.entity.UserEntity
 import com.dramtar.dogfreinds.data.remote.model.UserModel
 import com.dramtar.dogfreinds.domain.model.Dog
 import com.dramtar.dogfreinds.domain.model.User
+import java.time.Instant
+import java.util.*
 
 /**
  * Created by Dramtar on 10.04.2022
@@ -20,21 +22,8 @@ fun UserEntity.mapToDomain(): User {
         pictureLarge = pictureLarge,
         pictureMedium = pictureMedium,
         email = email,
-        lastUpdate = timestamp
-    )
-}
-
-fun UserEntity.mapToLocal(): UserEntity {
-    return UserEntity(
-        id = id,
-        gender = gender,
-        firstName = firstName,
-        lastName = lastName,
-        age = age,
-        date = date,
-        pictureLarge = pictureLarge,
-        pictureMedium = pictureMedium,
-        email = email
+        lastUpdate = timestamp,
+        isVip = isVip
     )
 }
 
@@ -48,7 +37,8 @@ fun User.mapToLocal(): UserEntity {
         date = date,
         pictureLarge = pictureLarge,
         pictureMedium = pictureMedium,
-        email = email
+        email = email,
+        isVip = isVip
     )
 }
 
@@ -59,10 +49,11 @@ fun UserModel.mapToLocal(): UserEntity {
         firstName = name.first,
         lastName = name.last,
         age = dob.age,
-        date = dob.date,
+        date = Date.from(Instant.parse(dob.date)).time,
         pictureLarge = picture.large,
         pictureMedium = picture.medium,
-        email = email
+        email = email,
+        isVip = false
     )
 }
 
@@ -73,11 +64,12 @@ fun UserModel.mapToDomain(): User {
         firstName = name.first,
         lastName = name.last,
         age = dob.age,
-        date = dob.date,
+        date = Date.from(Instant.parse(dob.date)).time,
         pictureLarge = picture.large,
         pictureMedium = picture.medium,
         email = email,
-        lastUpdate = 0
+        lastUpdate = 0,
+        isVip = false
     )
 }
 

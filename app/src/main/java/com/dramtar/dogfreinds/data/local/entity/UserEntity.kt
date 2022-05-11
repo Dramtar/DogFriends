@@ -19,8 +19,9 @@ data class UserEntity(
     val pictureLarge: String,
     val pictureMedium: String,
     val age: Int,
-    val date: String,
+    val date: Long,
     @ColumnInfo(name = "unique_email")
     val email: String,
+    val isVip: Boolean = false,
     val timestamp: Long = System.currentTimeMillis()
 )

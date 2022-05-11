@@ -1,11 +1,9 @@
 package com.dramtar.dogfreinds.data.local.dao
 
 import androidx.paging.PagingSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.dramtar.dogfreinds.data.local.entity.UserEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Dramtar on 15.03.2022
@@ -20,12 +18,12 @@ interface UserDao {
     suspend fun insertListUser(list: List<UserEntity>)
 
     @Query("SELECT * FROM user_table WHERE unique_id = :id")
-    suspend fun getUserById(id: Int): UserEntity?
+    fun getUserById(id: Int): Flow<UserEntity?>
 
     @Query("SELECT * FROM user_table ORDER BY unique_id ASC")
     fun getAllUsers(): PagingSource<Int, UserEntity>
 
-    @Query("DELETE FROM user_table")
+    @Query("DELETE FROM user_table where isVip = 0")
     suspend fun deleteAllUsers()
 
     @Query("DELETE FROM user_table where unique_email = :email")
@@ -36,4 +34,7 @@ interface UserDao {
 
     @Query("SELECT COUNT(unique_id) FROM user_table")
     suspend fun getCount(): Int
+
+    @Update
+    suspend fun updateUser(user: UserEntity)
 }

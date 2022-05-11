@@ -1,6 +1,7 @@
 package com.dramtar.dogfreinds.app
 
 import android.app.Application
+import com.dramtar.dogfreinds.data.sharedprefs.SharedPrefImpl
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -8,4 +9,14 @@ import dagger.hilt.android.HiltAndroidApp
  */
 
 @HiltAndroidApp
-class App : Application()
+class App : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        //clean()
+    }
+
+    private fun clean() {
+        this.deleteDatabase("DogFriends.db")
+        SharedPrefImpl(this).saveLastUserPage(1)
+    }
+}

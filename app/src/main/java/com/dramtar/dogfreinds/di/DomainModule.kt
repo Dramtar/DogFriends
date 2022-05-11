@@ -39,4 +39,23 @@ class DomainModule {
     fun provideGetRemoteDogUseCase(repository: Repository): GetRemoteDogUseCase {
         return GetRemoteDogUseCase(repository = repository)
     }
+
+    @Provides
+    fun provideGetUserByIdUseCase(repository: Repository): GetUserByIdUseCase {
+        return GetUserByIdUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideValidationsUseCases(): ValidationUseCases {
+        return ValidationUseCases(
+            nameValidation = NameValidationUseCase(),
+            emailValidation = EmailValidationUseCase(),
+            genderValidation = GenderValidationUseCase()
+        )
+    }
+
+    @Provides
+    fun provideUpdateUserUseCase(repository: Repository): UpdateUserUseCase {
+        return UpdateUserUseCase(repository = repository)
+    }
 }

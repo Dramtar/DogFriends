@@ -13,4 +13,6 @@
 
     <color name="alpha_black">#2A000000</color>
     <color name="alpha_white">#2AFFFFFF</color>
+
+    <color name="red_700">#FFD32F2F</color>
 </resources>
