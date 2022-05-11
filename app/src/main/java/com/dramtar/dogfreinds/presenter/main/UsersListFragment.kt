@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
  * Created by Dramtar on 19.03.2022
  */
 
-const val TAG = "userListFragment"
+private const val TAG = "userListFragment"
 
 class UsersListFragment : Fragment(R.layout.fragment_users_list),
     UserAdapter.OnItemClickListener {
@@ -55,6 +55,11 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
             swipeRefresher.setOnRefreshListener {
                 userAdapter.refresh()
             }
+
+            addButton.setOnClickListener {
+                findNavController().navigate(R.id.action_usersListFragment_to_addUserFragment)
+            }
+
         }
         userAdapter.stateRestorationPolicy =
             RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
@@ -62,7 +67,7 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
 
     @OptIn(ExperimentalPagingApi::class)
     private fun iniObservers() {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             vm.usersList.collectLatest {
                 userAdapter.submitData(lifecycle, it)
                 binding.swipeRefresher.isRefreshing = false

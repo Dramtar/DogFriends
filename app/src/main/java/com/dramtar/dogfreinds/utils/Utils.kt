@@ -49,5 +49,4 @@ fun User.setRndBGColorToUser(): User {
         bgColor = color,
         nameColor = Utils().invertColor(color)
     )
-
 }

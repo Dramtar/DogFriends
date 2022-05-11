@@ -56,6 +56,16 @@ class RepositoryImpl @Inject constructor(
         localDataSource.saveUser(user = user.mapToLocal())
     }
 
+    override suspend fun getUserById(id: Int): Flow<User?> = withContext(ioDispatcher) {
+        return@withContext localDataSource.getUserByID(id = id).map {
+            it?.mapToDomain()
+        }
+    }
+
+    override suspend fun updateUser(user: User) {
+        localDataSource.updateUser(user = user.mapToLocal())
+    }
+
     override suspend fun getLocalDog(email: String): Result<Dog> = withContext(ioDispatcher) {
         localDataSource.getDogByEmail(email = email)?.let { dogEntity ->
             return@withContext Result.Success(dogEntity.mapToDomain())

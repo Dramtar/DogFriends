@@ -37,16 +37,16 @@ class UserFragment : Fragment() {
 
     private fun initView() {
         val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
 
         binding.apply {
             viewModel = vm
             lifecycleOwner = viewLifecycleOwner
+            fragment = this@UserFragment
 
             collapsingToolbarView.setupWithNavController(
                 binding.toolbarView,
                 navController,
-                appBarConfiguration
+                AppBarConfiguration(navController.graph)
             )
 
             appBarView.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
@@ -54,10 +54,13 @@ class UserFragment : Fragment() {
                     binding.doggyAvatarSmallView.animateAlpha(state == State.COLLAPSED)
                 }
             })
+        }
+    }
 
-            humanAvatar.setOnClickListener {
-                vm.changeUser()
-            }
+    fun editUser() {
+        vm.selectedUser.value?.let { user ->
+            val action = UserFragmentDirections.actionUserFragmentToAddUserFragment(id = user.id)
+            findNavController().navigate(action)
         }
     }
 

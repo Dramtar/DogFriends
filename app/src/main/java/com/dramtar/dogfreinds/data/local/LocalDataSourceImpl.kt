@@ -7,6 +7,7 @@ import com.dramtar.dogfreinds.data.local.entity.DogEntity
 import com.dramtar.dogfreinds.data.local.entity.UserEntity
 import com.dramtar.dogfreinds.di.scope.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -30,8 +31,8 @@ class LocalDataSourceImpl @Inject constructor(
         userDao.insertUser(user)
     }
 
-    override suspend fun getUserByID(id: Int): UserEntity? = withContext(ioDispatcher) {
-        return@withContext userDao.getUserById(id)
+    override fun getUserByID(id: Int): Flow<UserEntity?> {
+        return userDao.getUserById(id)
     }
 
     override suspend fun lastUpdateUser(): Long = withContext(ioDispatcher) {
@@ -41,6 +42,10 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun deleteAllUsers() {
         userDao.deleteAllUsers()
+    }
+
+    override suspend fun updateUser(user: UserEntity) {
+        userDao.updateUser(user = user)
     }
 
     override suspend fun getDogByEmail(email: String): DogEntity? {

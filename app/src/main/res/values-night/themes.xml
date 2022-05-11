@@ -15,5 +15,7 @@
 
         <item name="itemBackground">@color/dark_gray</item>
         <item name="toolbarBackground">@color/alpha_black</item>
+
+        <item name="textInputStyle">@style/Widget.Inventory.TextInputLayout.OutlinedBox</item>
     </style>
 </resources>

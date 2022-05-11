@@ -14,11 +14,13 @@ data class User(
     val lastName: String,
     val pictureLarge: String,
     val pictureMedium: String,
-    val date: String,
+    val date: Long,
+    val dateFormatted: String = date.toDate(),
     val bgColor: Int = Color.TRANSPARENT,
     val nameColor: Int = Color.GRAY,
     val email: String,
     val age: Int,
+    val isVip: Boolean,
     val lastUpdate: Long,
     val lastUpdateText: String = lastUpdate.toDate()
 )

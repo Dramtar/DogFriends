@@ -4,10 +4,10 @@ import com.dramtar.dogfreinds.domain.model.User
 import com.dramtar.dogfreinds.domain.repository.Repository
 
 /**
- * Created by Dramtar on 15.03.2022
+ * Created by Dramtar on 07.05.2022
  */
-class SaveUserLocalUseCase(private val repository: Repository) {
-    suspend operator fun invoke(user: User) {
+class AddUserUseCase {
+    suspend operator fun invoke(repository: Repository, user: User) {
         repository.saveUser(user)
     }
 }

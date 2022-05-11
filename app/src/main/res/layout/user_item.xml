@@ -49,5 +49,17 @@
                 android:layout_height="wrap_content"
                 android:text="Doggy username" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/vip_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:textColor="@color/red_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="VIP"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

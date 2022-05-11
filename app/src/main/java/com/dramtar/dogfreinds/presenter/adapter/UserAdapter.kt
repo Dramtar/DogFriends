@@ -2,6 +2,7 @@ package com.dramtar.dogfreinds.presenter.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -56,6 +57,8 @@ class UserAdapter(private val listener: OnItemClickListener) :
                 nickName.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
                 idView.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
                 emailTextView.setTextColor(if (user.id % 2 == 0) user.nameColor else defTextColor)
+
+                vipLayout.visibility = if (user.isVip) View.VISIBLE else View.GONE
             }
         }
     }
