@@ -27,20 +27,11 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
 
     private val vm: MainViewModel by activityViewModels()
     private val userAdapter = UserAdapter(this)
-    private var _binding: FragmentUsersListBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUsersListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private lateinit var binding: FragmentUsersListBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentUsersListBinding.bind(view)
 
         initView()
         iniObservers()
@@ -78,10 +69,5 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
     override fun onItemClick(user: User) {
         vm.setSelectedUser(user)
         findNavController().navigate(R.id.action_usersListFragment_to_userFragment)
-    }
-
-    override fun onDestroy() {
-        _binding = null
-        super.onDestroy()
     }
 }

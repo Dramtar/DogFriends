@@ -28,10 +28,9 @@ import kotlinx.coroutines.flow.collectLatest
  */
 private const val IMAGE_REQUEST = "image/*"
 
-class AddUserFragment : Fragment() {
+class AddUserFragment : Fragment(R.layout.add_user_fragment) {
     private val viewModel: MainViewModel by activityViewModels()
-    private var _binding: AddUserFragmentBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: AddUserFragmentBinding
 
     private val navigationArgs: AddUserFragmentArgs by navArgs()
     private var imgPickLaunch: ActivityResultLauncher<String>? = null
@@ -41,13 +40,14 @@ class AddUserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = AddUserFragmentBinding.inflate(inflater, container, false)
         viewModel.editUserById(navigationArgs.id)
         initImgPickerLauncher()
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = AddUserFragmentBinding.bind(view)
         binding.apply {
             val navController = findNavController()
             toolbarView.setupWithNavController(
@@ -59,7 +59,6 @@ class AddUserFragment : Fragment() {
         bindObservers()
         bindListeners()
         bindErrorObservers()
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun bindObservers() {
@@ -124,9 +123,7 @@ class AddUserFragment : Fragment() {
                 showMenu(it, R.menu.gender_menu)
             }
             humanAvatar.setOnClickListener {
-                imgPickLaunch?.let {
-                    it.launch(IMAGE_REQUEST)
-                }
+                imgPickLaunch?.launch(IMAGE_REQUEST)
             }
             dateButton.setOnClickListener {
                 showDatePicker()
@@ -173,10 +170,5 @@ class AddUserFragment : Fragment() {
             true
         }
         popup.show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }
