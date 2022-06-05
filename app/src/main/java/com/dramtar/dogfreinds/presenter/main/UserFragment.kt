@@ -9,6 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.dramtar.dogfreinds.R
+import com.dramtar.dogfreinds.databinding.AddUserFragmentBinding
 import com.dramtar.dogfreinds.databinding.FragmentUserBinding
 import com.dramtar.dogfreinds.utils.*
 import com.google.android.material.appbar.AppBarLayout
@@ -16,28 +18,18 @@ import com.google.android.material.appbar.AppBarLayout
 /**
  * Created by Dramtar on 19.03.2022
  */
-class UserFragment : Fragment() {
+class UserFragment : Fragment(R.layout.fragment_user) {
     private val vm: MainViewModel by activityViewModels()
-    private var _binding: FragmentUserBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUserBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private lateinit var binding: FragmentUserBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentUserBinding.bind(view)
         initView()
     }
 
     private fun initView() {
         val navController = findNavController()
-
         binding.apply {
             viewModel = vm
             lifecycleOwner = viewLifecycleOwner
@@ -62,10 +54,5 @@ class UserFragment : Fragment() {
             val action = UserFragmentDirections.actionUserFragmentToAddUserFragment(id = user.id)
             findNavController().navigate(action)
         }
-    }
-
-    override fun onDestroy() {
-        _binding = null
-        super.onDestroy()
     }
 }
