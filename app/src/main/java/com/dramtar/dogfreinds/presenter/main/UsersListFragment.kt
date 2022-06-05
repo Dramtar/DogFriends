@@ -1,9 +1,7 @@
 package com.dramtar.dogfreinds.presenter.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -62,6 +60,14 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list),
             vm.usersList.collectLatest {
                 userAdapter.submitData(lifecycle, it)
                 binding.swipeRefresher.isRefreshing = false
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            vm.isNeedScrollToEnd().collectLatest {
+                if (it) {
+                    binding.usersRecyclerView.scrollToPosition(userAdapter.itemCount-1)
+                }
             }
         }
     }

@@ -56,6 +56,8 @@ class AddUserFragment : Fragment(R.layout.add_user_fragment) {
             )
             toolbarView.setTitle(R.string.edit_user_title)
         }
+        viewModel.setNeedScrollToEnd()
+
         bindObservers()
         bindListeners()
         bindErrorObservers()
@@ -89,6 +91,7 @@ class AddUserFragment : Fragment(R.layout.add_user_fragment) {
             viewModel.validationEvents.collectLatest {
                 when (it) {
                     is MainViewModel.ValidationEvent.Success -> {
+                        viewModel.setNeedScrollToEnd()
                         findNavController().popBackStack()
                     }
                 }

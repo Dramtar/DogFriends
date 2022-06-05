@@ -43,6 +43,8 @@ class MainViewModel @Inject constructor(
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
+    private var isNeedScrollToEnd = false
+
     @ExperimentalPagingApi
     val usersList: Flow<PagingData<User>> = getUsersUseCase.execute().cachedIn(viewModelScope)
 
@@ -209,6 +211,15 @@ class MainViewModel @Inject constructor(
 
     private suspend fun getUserByIdCall(id: Int): Flow<User?> {
         return getUserByIdUseCase.execute(id = id)
+    }
+
+    fun isNeedScrollToEnd() = flow {
+        emit(isNeedScrollToEnd)
+        isNeedScrollToEnd = false
+    }
+
+    fun setNeedScrollToEnd() {
+        isNeedScrollToEnd = true
     }
 
     sealed class ValidationEvent {
