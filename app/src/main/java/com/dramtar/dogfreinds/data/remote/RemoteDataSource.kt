@@ -1,7 +1,5 @@
 package com.dramtar.dogfreinds.data.remote
 
-import com.dramtar.dogfreinds.data.remote.model.ResponseDogAvatar
-import com.dramtar.dogfreinds.data.remote.model.ResponseUser
 import com.dramtar.dogfreinds.utils.Result
 
 /**

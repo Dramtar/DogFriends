@@ -6,9 +6,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.bumptech.glide.load.HttpException
 import com.dramtar.dogfreinds.data.local.LocalDataSource
-import com.dramtar.dogfreinds.data.local.entity.UserEntity
+import com.dramtar.dogfreinds.data.local.UserEntity
 import com.dramtar.dogfreinds.data.remote.RemoteDataSource
-import com.dramtar.dogfreinds.data.remote.model.UserModel
+import com.dramtar.dogfreinds.data.remote.UserModel
 import com.dramtar.dogfreinds.data.sharedprefs.SharedPref
 import com.dramtar.dogfreinds.utils.CACHE_TIME_OUT
 import com.dramtar.dogfreinds.utils.Result

@@ -1,8 +1,7 @@
-package com.dramtar.dogfreinds.data.local.dao
+package com.dramtar.dogfreinds.data.local
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.dramtar.dogfreinds.data.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

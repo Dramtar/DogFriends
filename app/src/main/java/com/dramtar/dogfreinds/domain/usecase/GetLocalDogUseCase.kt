@@ -1,7 +1,7 @@
 package com.dramtar.dogfreinds.domain.usecase
 
 import com.dramtar.dogfreinds.domain.model.Dog
-import com.dramtar.dogfreinds.domain.repository.Repository
+import com.dramtar.dogfreinds.domain.Repository
 import com.dramtar.dogfreinds.utils.Result
 
 /**

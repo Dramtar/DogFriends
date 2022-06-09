@@ -1,7 +1,7 @@
 package com.dramtar.dogfreinds.di
 
-import com.dramtar.dogfreinds.data.repository.RepositoryImpl
-import com.dramtar.dogfreinds.domain.repository.Repository
+import com.dramtar.dogfreinds.data.RepositoryImpl
+import com.dramtar.dogfreinds.domain.Repository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

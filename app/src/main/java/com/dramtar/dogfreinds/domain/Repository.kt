@@ -1,4 +1,4 @@
-package com.dramtar.dogfreinds.domain.repository
+package com.dramtar.dogfreinds.domain
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData

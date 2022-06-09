@@ -1,15 +1,15 @@
-package com.dramtar.dogfreinds.data.repository
+package com.dramtar.dogfreinds.data
 
 import androidx.paging.*
 import com.dramtar.dogfreinds.data.local.LocalDataSource
-import com.dramtar.dogfreinds.data.local.entity.UserEntity
+import com.dramtar.dogfreinds.data.local.UserEntity
 import com.dramtar.dogfreinds.data.pagingsources.UserRemoteMediator
 import com.dramtar.dogfreinds.data.remote.RemoteDataSource
 import com.dramtar.dogfreinds.data.sharedprefs.SharedPref
-import com.dramtar.dogfreinds.di.scope.IoDispatcher
+import com.dramtar.dogfreinds.di.IoDispatcher
 import com.dramtar.dogfreinds.domain.model.Dog
 import com.dramtar.dogfreinds.domain.model.User
-import com.dramtar.dogfreinds.domain.repository.Repository
+import com.dramtar.dogfreinds.domain.Repository
 import com.dramtar.dogfreinds.utils.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

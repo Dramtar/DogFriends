@@ -1,6 +1,6 @@
 package com.dramtar.dogfreinds.domain.usecase
 
-import com.dramtar.dogfreinds.domain.repository.Repository
+import com.dramtar.dogfreinds.domain.Repository
 
 /**
  * Created by Dramtar on 06.05.2022

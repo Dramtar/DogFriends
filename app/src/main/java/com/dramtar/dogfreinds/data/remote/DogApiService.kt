@@ -1,6 +1,5 @@
 package com.dramtar.dogfreinds.data.remote
 
-import com.dramtar.dogfreinds.data.remote.model.ResponseUser
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
