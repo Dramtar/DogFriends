@@ -1,8 +1,6 @@
 package com.dramtar.dogfreinds.data.remote
 
-import com.dramtar.dogfreinds.data.remote.model.ResponseDogAvatar
-import com.dramtar.dogfreinds.data.remote.model.ResponseUser
-import com.dramtar.dogfreinds.di.scope.IoDispatcher
+import com.dramtar.dogfreinds.di.IoDispatcher
 import com.dramtar.dogfreinds.utils.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -34,8 +32,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
         return@withContext try {
             val result = userApiService.getDogAvatar("https://dog.ceo/api/breeds/image/random")
             if (result.isSuccessful) {
-                val dogAvatarResponce = result.body()
-                Result.Success(dogAvatarResponce)
+                val dogAvatarResponse = result.body()
+                Result.Success(dogAvatarResponse)
             } else {
                 Result.Success(null)
             }

@@ -1,4 +1,4 @@
-package com.dramtar.dogfreinds.data.remote.model
+package com.dramtar.dogfreinds.data.remote
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

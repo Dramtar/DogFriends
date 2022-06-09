@@ -1,4 +1,4 @@
-package com.dramtar.dogfreinds.di.scope
+package com.dramtar.dogfreinds.di
 
 import javax.inject.Qualifier
 

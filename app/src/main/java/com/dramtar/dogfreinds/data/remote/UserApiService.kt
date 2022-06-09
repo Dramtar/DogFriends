@@ -1,7 +1,5 @@
 package com.dramtar.dogfreinds.data.remote
 
-import com.dramtar.dogfreinds.data.remote.model.ResponseDogAvatar
-import com.dramtar.dogfreinds.data.remote.model.ResponseUser
 import com.dramtar.dogfreinds.utils.QUERY_PAGE_SIZE
 import retrofit2.Response
 import retrofit2.http.GET

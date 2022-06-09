@@ -1,4 +1,4 @@
-package com.dramtar.dogfreinds.app
+package com.dramtar.dogfreinds
 
 import android.app.Application
 import com.dramtar.dogfreinds.data.sharedprefs.SharedPrefImpl

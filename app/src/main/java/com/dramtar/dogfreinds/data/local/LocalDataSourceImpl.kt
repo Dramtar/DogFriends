@@ -1,11 +1,7 @@
 package com.dramtar.dogfreinds.data.local
 
 import androidx.paging.PagingSource
-import com.dramtar.dogfreinds.data.local.dao.DogDao
-import com.dramtar.dogfreinds.data.local.dao.UserDao
-import com.dramtar.dogfreinds.data.local.entity.DogEntity
-import com.dramtar.dogfreinds.data.local.entity.UserEntity
-import com.dramtar.dogfreinds.di.scope.IoDispatcher
+import com.dramtar.dogfreinds.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

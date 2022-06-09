@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.dramtar.dogfreinds.domain.model.User
-import com.dramtar.dogfreinds.domain.repository.Repository
+import com.dramtar.dogfreinds.domain.Repository
 import com.dramtar.dogfreinds.utils.setRndBGColorToUser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

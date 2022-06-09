@@ -1,8 +1,5 @@
 package com.dramtar.dogfreinds.di
 
-import com.dramtar.dogfreinds.di.scope.DefaultDispatcher
-import com.dramtar.dogfreinds.di.scope.IoDispatcher
-import com.dramtar.dogfreinds.di.scope.MainDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

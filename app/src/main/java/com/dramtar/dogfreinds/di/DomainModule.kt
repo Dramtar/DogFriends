@@ -1,6 +1,6 @@
 package com.dramtar.dogfreinds.di
 
-import com.dramtar.dogfreinds.domain.repository.Repository
+import com.dramtar.dogfreinds.domain.Repository
 import com.dramtar.dogfreinds.domain.usecase.*
 import dagger.Module
 import dagger.Provides

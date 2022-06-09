@@ -1,4 +1,4 @@
-package com.dramtar.dogfreinds.data.local.entity
+package com.dramtar.dogfreinds.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,8 +1,8 @@
 package com.dramtar.dogfreinds.utils
 
-import com.dramtar.dogfreinds.data.local.entity.DogEntity
-import com.dramtar.dogfreinds.data.local.entity.UserEntity
-import com.dramtar.dogfreinds.data.remote.model.UserModel
+import com.dramtar.dogfreinds.data.local.DogEntity
+import com.dramtar.dogfreinds.data.local.UserEntity
+import com.dramtar.dogfreinds.data.remote.UserModel
 import com.dramtar.dogfreinds.domain.model.Dog
 import com.dramtar.dogfreinds.domain.model.User
 import java.time.Instant

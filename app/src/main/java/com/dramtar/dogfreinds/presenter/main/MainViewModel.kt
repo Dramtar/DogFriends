@@ -21,6 +21,8 @@ import javax.inject.Inject
  * Created by Dramtar on 14.03.2022
  */
 
+private const val YEAR_IN_MILLIS = 31536000000
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     getUsersUseCase: GetUserUseCase,
@@ -149,17 +151,19 @@ class MainViewModel @Inject constructor(
 
     private fun addUser() {
         if (!validateAllFields()) return
+        if (_selectedUser.value == null) setNeedScrollToEnd()
+
         val newUser = User(
             id = _selectedUser.value?.id ?: 0,
             gender = state.value.gender,
             firstName = state.value.firstName,
             lastName = state.value.lastName,
-            age = 18,          //implement counting age
+            age = countAge(state.value.date),
             date = state.value.date,
             pictureLarge = state.value.avatar,
             pictureMedium = state.value.avatar,
             email = state.value.email,
-            lastUpdate = 0,
+            lastUpdate = System.currentTimeMillis(),
             isVip = true
         )
 
@@ -168,6 +172,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             validationEventChannel.send(ValidationEvent.Success)
         }
+    }
+
+    fun countAge(birthday: Long): Int {
+        return ((System.currentTimeMillis() - birthday) / YEAR_IN_MILLIS).toInt()
     }
 
     private fun validateAllFields(): Boolean {

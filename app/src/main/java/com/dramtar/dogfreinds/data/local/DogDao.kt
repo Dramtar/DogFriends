@@ -1,10 +1,9 @@
-package com.dramtar.dogfreinds.data.local.dao
+package com.dramtar.dogfreinds.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dramtar.dogfreinds.data.local.entity.DogEntity
 
 /**
  * Created by Dramtar on 23.03.2022
